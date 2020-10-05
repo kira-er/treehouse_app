@@ -41,7 +41,7 @@
         app:srcCompat="@drawable/ic_help_button" />
 
     <Switch
-        android:id="@+id/snow"
+        android:id="@+id/snowSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Switch"
@@ -53,7 +53,7 @@
         app:layout_constraintVertical_bias="0.7" />
 
     <SeekBar
-        android:id="@+id/size"
+        android:id="@+id/sizeSeekBar"
         android:layout_width="245dp"
         android:layout_height="33dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.4" />
 
     <SeekBar
-        android:id="@+id/amount"
+        android:id="@+id/amountSeekBar"
         android:layout_width="245dp"
         android:layout_height="33dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
         app:layout_constraintVertical_bias="0.55" />
 
     <Spinner
-        android:id="@+id/type"
+        android:id="@+id/typeSpinner"
         android:layout_width="150dp"
         android:layout_height="27dp"
         app:layout_constraintBottom_toBottomOf="parent"
