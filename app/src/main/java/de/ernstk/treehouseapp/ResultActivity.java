@@ -75,7 +75,7 @@ public class ResultActivity extends AppCompatActivity {
         double treeDiameter;
 
         double safetyFactor = 2; // intent
-        
+
         totalWeight = calculateTotalWeight();
         treeSqcm = totalWeight/ 200;
         treeRadius = Math.sqrt(treeSqcm / Math.PI);
