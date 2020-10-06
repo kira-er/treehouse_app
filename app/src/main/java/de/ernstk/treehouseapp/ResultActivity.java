@@ -68,7 +68,7 @@ public class ResultActivity extends AppCompatActivity {
         return totalWeight;
     }
 
-    protected double calculateDiameter() {
+    protected double calculateDiameter() throws Exception {
         double totalWeight;
         double treeSqcm;
         double treeRadius;
@@ -76,17 +76,11 @@ public class ResultActivity extends AppCompatActivity {
 
         double safetyFactor = 2; // intent
         
-        try {
-            totalWeight = calculateTotalWeight();
-            treeSqcm = totalWeight/ 200;
-            treeRadius = Math.sqrt(treeSqcm / Math.PI);
-            treeDiameter = treeRadius * 2;
-            treeDiameter = treeDiameter * safetyFactor;
-            return treeDiameter;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+        totalWeight = calculateTotalWeight();
+        treeSqcm = totalWeight/ 200;
+        treeRadius = Math.sqrt(treeSqcm / Math.PI);
+        treeDiameter = treeRadius * 2;
+        treeDiameter = treeDiameter * safetyFactor;
+        return treeDiameter;
     }
 }
