@@ -12,12 +12,15 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private Button _runButton;
     private ImageButton _helpButton;
     private ImageButton _historyButton;
     private DatabaseManager _databaseManager;
+
+    private SeekBar _amountPeopleSeekBar;
+    private SeekBar _sizeSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         _helpButton.setOnClickListener(this);
         _historyButton = findViewById(R.id.historyButton);
         _historyButton.setOnClickListener(this);
+
+        _amountPeopleSeekBar = findViewById(R.id.amountPeopleSeekBar);
+        _sizeSeekBar = findViewById(R.id.sizeSeekBar);
+
+        UpdateSeekbarMax();
     }
 
     @Override
@@ -39,17 +47,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view == _runButton){
             Intent intent = new Intent(this, ResultActivity.class);
 
-            SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
             Spinner typeSpinner = findViewById(R.id.typeSpinner);
-            SeekBar amountPeopleSeekBar = findViewById(R.id.amountPeopleSeekBar);
             EditText snowNumber = findViewById(R.id.snowNumber);
             EditText safetyFactorNumber = findViewById(R.id.safetyFactorNumber);
 
 
 
-            intent.putExtra("size", sizeSeekBar.getProgress());
+            intent.putExtra("size", _sizeSeekBar.getProgress());
             intent.putExtra("type", typeSpinner.getSelectedItemId());
-            intent.putExtra("amountPeople", amountPeopleSeekBar.getProgress());
+            intent.putExtra("amountPeople", _amountPeopleSeekBar.getProgress());
             intent.putExtra("snow", Double.parseDouble(snowNumber.getText().toString()));
             intent.putExtra("safetyFactor", Double.parseDouble(safetyFactorNumber.getText().toString()));
 
@@ -64,4 +70,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             overridePendingTransition(R.anim.slide_in_right, R.anim.do_nothing);
         }
     }
+
+    private void UpdateSeekbarMax(){
+        _sizeSeekBar.setMax();
+    }
+
+    private void SetSizeBounds(int min, int max){
+
+    }
+
+    private void SetPeopleBounds(int min, int max){
+
+    }
+
+    private föpat
+
+    private int GetPeopleAmount(){
+
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        UpdateSeekbarMax();
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {}
 }
