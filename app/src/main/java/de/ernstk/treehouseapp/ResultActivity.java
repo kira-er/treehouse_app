@@ -90,4 +90,10 @@ public class ResultActivity extends AppCompatActivity {
         treeDiameter = treeDiameter * safetyFactor;
         return treeDiameter;
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.do_nothing, R.anim.slide_out_right);
+    }
 }

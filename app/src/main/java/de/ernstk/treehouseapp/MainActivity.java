@@ -17,11 +17,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button _runButton;
     private ImageButton _helpButton;
     private ImageButton _historyButton;
+    private DatabaseManager _databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        _databaseManager = new DatabaseManager(this);
 
         _runButton = findViewById(R.id.runButton);
         _runButton.setOnClickListener(this);
@@ -52,10 +55,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.do_nothing);
         }else if(view == _helpButton){
             startActivity(new Intent(this, HelpActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.do_nothing);
         }else if(view == _historyButton){
             startActivity(new Intent(this, HistoryActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.do_nothing);
         }
     }
 }
