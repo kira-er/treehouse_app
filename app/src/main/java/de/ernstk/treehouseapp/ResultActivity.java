@@ -20,7 +20,8 @@ public class ResultActivity extends AppCompatActivity {
         double safetyFactor = intent.getDoubleExtra("safetyFactor", 1);
 
         try {
-           double treeDiameter =  calculateDiameter(type, size, amountPeople, snowHeight, safetyFactor);
+            double treeDiameter =  calculateDiameter(type, size, amountPeople, snowHeight, safetyFactor);
+            MainActivity.DatabaseManager.InsertNewEntry(new DatabaseEntry(type, size, amountPeople, snowHeight, safetyFactor, treeDiameter));
         } catch (Exception e) {
             finish();
         }
