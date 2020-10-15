@@ -1,6 +1,7 @@
 package de.ernstk.treehouseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import static android.view.View.GONE;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, AdapterView.OnItemSelectedListener {
 
@@ -21,8 +25,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton _helpButton;
     private ImageButton _historyButton;
 
-    private SeekBar _amountPeopleSeekBar;
+    private Button _typeHelpButton;
+    private Button _sizeHelpButton;
+    private Button _amountPeopleHelpButton;
+    private Button _snowHelpButton;
+    private Button _safetyFactorHelpButton;
+
     private SeekBar _sizeSeekBar;
+    private TextView _sizeValueIndicator;
+
+    private SeekBar _amountPeopleSeekBar;
+    private TextView _amountPeopleValueIndicator;
 
     private Spinner _typeSpinner;
 
@@ -52,7 +65,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         _typeSpinner.setAdapter(adapter);
         _typeSpinner.setOnItemSelectedListener(this);
 
+        _typeHelpButton = findViewById(R.id.typeHelpButton);
+        _typeHelpButton.setOnClickListener(this);
+
+        _sizeHelpButton = findViewById(R.id.sizeHelpButton);
+        _sizeHelpButton.setOnClickListener(this);
+
+        _amountPeopleHelpButton = findViewById(R.id.amountPeopleHelpButton);
+        _amountPeopleHelpButton.setOnClickListener(this);
+
+        _snowHelpButton = findViewById(R.id.snowNumberHelpButton);
+        _snowHelpButton.setOnClickListener(this);
+
+        _safetyFactorHelpButton = findViewById(R.id.safetyFactorHelpButton);
+        _safetyFactorHelpButton.setOnClickListener(this);
+
+        _sizeValueIndicator = findViewById(R.id.sizeValueIndicator);
+
+        _amountPeopleValueIndicator = findViewById(R.id.amountPeopleValueIndicator);
+
         UpdateSeekbarMax();
+        UpdateSizeValueIndicator();
+        UpdatePeopleValueIndicator();
     }
 
     @Override
@@ -89,6 +123,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(view == _historyButton){
             startActivity(new Intent(this, HistoryActivity.class));
             overridePendingTransition(R.anim.slide_in_right, R.anim.do_nothing);
+        }else if(view == _typeHelpButton){
+            TextView desc = findViewById(R.id.typeDescription);
+            if(desc.getVisibility() == View.VISIBLE){
+                desc.setVisibility(GONE);
+            }else{
+                desc.setVisibility(View.VISIBLE);
+            }
+        }else if(view == _sizeHelpButton){
+            TextView desc = findViewById(R.id.sizeDescription);
+            if(desc.getVisibility() == View.VISIBLE){
+                desc.setVisibility(GONE);
+            }else{
+                desc.setVisibility(View.VISIBLE);
+            }
+        }else if(view == _amountPeopleHelpButton){
+            TextView desc = findViewById(R.id.amountPeopleDescription);
+            if(desc.getVisibility() == View.VISIBLE){
+                desc.setVisibility(GONE);
+            }else{
+                desc.setVisibility(View.VISIBLE);
+            }
+        }else if(view == _snowHelpButton){
+            TextView desc = findViewById(R.id.snowNumberDescription);
+            if(desc.getVisibility() == View.VISIBLE){
+                desc.setVisibility(GONE);
+            }else{
+                desc.setVisibility(View.VISIBLE);
+            }
+        }else if(view == _safetyFactorHelpButton){
+            TextView desc = findViewById(R.id.safetyFactorDescription);
+            if(desc.getVisibility() == View.VISIBLE){
+                desc.setVisibility(GONE);
+            }else{
+                desc.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -111,24 +180,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private int _sizeMin;
+    private int _sizeMax;
     private void SetSizeBounds(int min, int max){
-        System.out.println("Size-   Bounds changed to "+min+"-"+max);
         _sizeMin = min;
-        int delta = max - min;
-        _sizeSeekBar.setMax(delta * 10);
+        _sizeMax = (max - min) * 10;
+        _sizeSeekBar.setMax(_sizeMax);
     }
 
     private int _peopleMin;
+    private int _peopleMax;
     private void SetPeopleBounds(int min, int max){
-        System.out.println("People-Bounds changed to "+min+"-"+max);
         _peopleMin = min;
-        int delta = max - min;
-        _amountPeopleSeekBar.setMax(delta);
+        _peopleMax = max - min;
+        _amountPeopleSeekBar.setMax(_peopleMax);
     }
 
     private double GetSizeValue(){
-        double value = _sizeSeekBar.getProgress() + _sizeMin;
-        return value / 10d;
+        double value = _sizeSeekBar.getProgress();
+        return value / 10d + _sizeMin;
     }
 
     private int GetPeopleValue(){
@@ -137,8 +206,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        System.out.println((seekBar == _sizeSeekBar ? "Size-   " : "People-") + "Value is "+i);
-        if(seekBar == _sizeSeekBar) UpdateSeekbarMax();
+        if(seekBar == _sizeSeekBar) {
+            UpdateSeekbarMax();
+
+            UpdateSizeValueIndicator();
+        }else if(seekBar == _amountPeopleSeekBar){
+            UpdatePeopleValueIndicator();
+        }
+    }
+
+    private void UpdateSizeValueIndicator(){
+        String value = String.valueOf(GetSizeValue());
+        _sizeValueIndicator.setText(value);
+
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) _sizeValueIndicator.getLayoutParams();
+        params.horizontalBias = (float)_sizeSeekBar.getProgress()/_sizeMax;
+        _sizeValueIndicator.setLayoutParams(params);
+    }
+
+    private void UpdatePeopleValueIndicator(){
+        String value = String.valueOf(GetPeopleValue());
+        _amountPeopleValueIndicator.setText(value);
+
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) _amountPeopleValueIndicator.getLayoutParams();
+        params.horizontalBias = (float)_amountPeopleSeekBar.getProgress()/_peopleMax;
+        _amountPeopleValueIndicator.setLayoutParams(params);
     }
 
     @Override
