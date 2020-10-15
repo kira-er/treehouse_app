@@ -44,7 +44,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         _insertStatement.bindDouble(3, entry.TreehouseSize);
         _insertStatement.bindLong(4, entry.PersonCount);
         _insertStatement.bindDouble(5, entry.SnowHeight);
-        _insertStatement.bindDouble(6, entry.TreeSize);
+        _insertStatement.bindDouble(6, entry.SafetyFactor);
+        _insertStatement.bindDouble(7, entry.TreeSize);
 
         long idOfNewRow = _insertStatement.executeInsert();
         _insertStatement.clearBindings();
