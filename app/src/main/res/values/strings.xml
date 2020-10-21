@@ -6,4 +6,28 @@
         <item>Bewohnbares Baumhaus</item>
         <item>Luxus-Baumhaus</item>
     </string-array>
+
+    <string name="type"> <b>Baumhaustyp</b> </string>
+    <string name="type_help">Der Baumhaustyp gibt die Bauweise des Baumhauses an und liefert somit ungefähre Angaben über das zu erwartende Gewicht. \n
+        <ul><b>Mögliche Werte:</b> \n\n
+            <li><b>Einfaches Kinderspielhaus: </b>\nungedämmte, leichte Bauweise bis zu 15 m² inkl. Terrasse</li> \n
+            <li><b>Bewohnbares Baumhaus: </b>\nstabile Konstruktion, leicht gedämmt mit wertiger Dachdeckung und Glasfenstern, 15-25 m²</li> \n
+            <li><b>Luxusbaumhaus: </b> \nmassive Konstruktion, dicker Wandaufbau mit guter Dämmung, Sanitäranlagen und Dreifach-Verglasung, 15-40 m²</li></ul></string>
+    <string name="size"><b>Größe in m²</b></string>
+    <string name="size_help">Durch den Parameter "Größe" wird angegeben, welche Fläche das Baumhaus haben soll. Die möglichen Werte orientieren sich am gewählten Baumhaustyp.</string>
+    <string name="people"><b>Personenanzahl</b></string>
+    <string name="people_help">Durch die Personenanzahl soll angegeben werden, wie viele Personen maximal gelichzeitig auf dem Baumhaus sein werden. Die möglichen Werte orientieren sich an der Größe des Bazumhauses.</string>
+    <string name="snow"><b>Schneehöhe</b></string>
+    <string name="snow_help">Angabe, wie viel Schnee gemessen in cm im Winter durchschnittlich zu erwarten ist, um das dadurch entstehende Gewicht zu berücksichtigen. </string>
+    <string name="safety"><b>Sicherheitsfaktor</b></string>
+    <string name="safety_help">Durch den Sicherheitsfaktor wird in die Kalkulation des Baumduchmessers eine Toleranz mit einkalkuliert. Hierbei wird mindestens Faktor 2 empfohlen.</string>
+
+    <string name="general_help" >
+        <b>Herzlich Willkommen bei der ersten und einzigen Baumhausbaumkalkulationsapp!</b>\n
+        \nWir helfen Euch, den Traum vom eigenen Baumhaus zu erfüllen, indem wir Euch den Mindestdurchmesser Eures Baumes berechnen.
+        Die Traglast von Holz ist erstaunlich! Jedoch sollte beim Bau ein gerader, gesunder Baum gewählt, sowie die Gewichtsangaben der jeweils gewählten Befestigungmethode beachtet werden.
+        Auf Basis der Angaben zum Typ, der Größe des Baumhauses, sowie zur Anzahl der auf dem Baumhaus erwarteten Personen und dem durchschnittlichen Schneefall wird gepaart mit einem Sicherheitsfaktor
+        das erwartete Gewicht des Baumhauses und daraus der entsprechende Durchmesser des Baumstammes ermittelt. Im folgenden findet Ihr genauerer Informationen zu den Auswahlmöglichkeiten
+        zur Konfiguration eures Baumhausbaums.
+    </string>
 </resources>
