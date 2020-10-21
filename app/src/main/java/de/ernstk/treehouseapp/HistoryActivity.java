@@ -2,6 +2,7 @@ package de.ernstk.treehouseapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,9 +11,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -24,12 +29,9 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        databaseManager = MainActivity.DatabaseManager;
-        DatabaseEntry[] entries = databaseManager.GetEntries();
-
         _recyclerView = findViewById(R.id.historyRecyclerView);
         _recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        _recyclerView.setAdapter(new HistoryListViewAdapter(this, entries));
+        _recyclerView.setAdapter(new HistoryListViewAdapter(this));
     }
 
     @Override
@@ -42,8 +44,10 @@ public class HistoryActivity extends AppCompatActivity {
         private DatabaseEntry[] _entries;
         private LayoutInflater _inflater;
 
-        private HistoryListViewAdapter(Context context, DatabaseEntry[] entries) {
-            _entries = entries;
+        private HistoryListViewAdapter(Context context) {
+            databaseManager = MainActivity.DatabaseManager;
+            _entries = databaseManager.GetEntries();
+
             _inflater = LayoutInflater.from(context);
         }
 
@@ -60,13 +64,21 @@ public class HistoryActivity extends AppCompatActivity {
             df.setMaximumFractionDigits(2);
 
             DatabaseEntry entry = _entries[position];
-            holder.TimeStampView.setText("<b>Timestamp:</b>\n" + entry.Timestamp);
-            holder.SizeView.setText("<b>Size:</b>\n" +df.format(entry.TreehouseSize));
-            holder.TypeView.setText("<b>Type:</b>\n" +entry.TreehouseType);
-            holder.AmountPeopleView.setText("<b>People:</b>\n" + entry.PersonCount);
-            holder.SnowView.setText("<b>Snow:</b>\n" + df.format(entry.SnowHeight));
-            holder.SafetyFactorView.setText("<b>Safetyfactor:</b>\n" + df.format(entry.SafetyFactor));
-            holder.TreeSizeView.setText("<b>TreeSize:</b>\n" + df.format(entry.TreeSize));
+            Timestamp timestamp = new Timestamp(entry.Timestamp);
+            holder.TimeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp)); //todo
+            holder.SizeView.setText(df.format(entry.TreehouseSize));
+            String[] types = getResources().getStringArray(R.array.treehousetypes_array);
+            String typeText = "ERROR";
+            try{
+                typeText = types[entry.TreehouseType];
+            }catch(Exception e){} //if the array access fails, text will be ERROR
+
+            holder.TypeView.setText(typeText);
+            holder.AmountPeopleView.setText(""+entry.PersonCount);
+            holder.SnowView.setText(df.format(entry.SnowHeight));
+            holder.SafetyFactorView.setText(df.format(entry.SafetyFactor));
+            holder.TreeSizeView.setText(df.format(entry.TreeSize));
+            holder.Index = entry.ID;
         }
 
         @Override
@@ -74,7 +86,16 @@ public class HistoryActivity extends AppCompatActivity {
             return _entries.length;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public void RefreshData(){
+            databaseManager = MainActivity.DatabaseManager;
+            _entries = databaseManager.GetEntries();
+
+            notifyDataSetChanged();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            int Index = -1;
+
             TextView TimeStampView;
             TextView SizeView;
             TextView TypeView;
@@ -83,9 +104,24 @@ public class HistoryActivity extends AppCompatActivity {
             TextView SafetyFactorView;
             TextView TreeSizeView;
 
+            ConstraintLayout DetailLayout;
+
+            ImageButton deleteButton;
+
+            View ItemView;
 
             ViewHolder(View itemView) {
                 super(itemView);
+
+                ItemView = itemView;
+                ConstraintLayout layout = itemView.findViewById(R.id.itemLayout);
+                layout.setOnClickListener(this);
+
+                DetailLayout = itemView.findViewById(R.id.detailLayout);
+
+                deleteButton = itemView.findViewById(R.id.deleteButton);
+                deleteButton.setOnClickListener(this);
+
                 TimeStampView = itemView.findViewById(R.id.timeStampView);
                 SizeView = itemView.findViewById(R.id.sizeView);
                 TypeView = itemView.findViewById(R.id.typeView);
@@ -93,6 +129,23 @@ public class HistoryActivity extends AppCompatActivity {
                 SnowView = itemView.findViewById(R.id.snowView);
                 SafetyFactorView = itemView.findViewById(R.id.safetyFactorView);
                 TreeSizeView = itemView.findViewById(R.id.treeSizeView);
+            }
+
+            @Override
+            public void onClick(View view) {
+                if(view == deleteButton){
+                    if(Index != -1){
+                        MainActivity.DatabaseManager.RemoveEntry(Index);
+                    }
+                    RefreshData();
+                    return;
+                }
+
+                if(DetailLayout.getVisibility() != View.VISIBLE){
+                    DetailLayout.setVisibility(View.VISIBLE);
+                }else{
+                    DetailLayout.setVisibility(View.GONE);
+                }
             }
         }
     }

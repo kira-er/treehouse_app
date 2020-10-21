@@ -1,7 +1,8 @@
 package de.ernstk.treehouseapp;
 
 public class DatabaseEntry {
-    public float Timestamp;
+    public int ID;
+    public long Timestamp;
     public int TreehouseType;
     public double TreehouseSize;
     public int PersonCount;
@@ -10,10 +11,11 @@ public class DatabaseEntry {
     public double TreeSize;
 
     public DatabaseEntry(int treehouseType, double treehouseSize, int personCount, double snowHeight, double safetyFactor, double treeSize){
-        this(System.currentTimeMillis() / 1000, treehouseType, treehouseSize, personCount, snowHeight, safetyFactor, treeSize);
+        this(-1, System.currentTimeMillis(), treehouseType, treehouseSize, personCount, snowHeight, safetyFactor, treeSize);
     }
 
-    public DatabaseEntry(float timestamp, int treehouseType, double treehouseSize, int personCount, double snowHeight, double safetyFactor, double treeSize){
+    public DatabaseEntry(int id, long timestamp, int treehouseType, double treehouseSize, int personCount, double snowHeight, double safetyFactor, double treeSize){
+        ID = id;
         Timestamp = timestamp;
         TreehouseType = treehouseType;
         TreehouseSize = treehouseSize;
