@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             EditText safetyFactorNumber = findViewById(R.id.safetyFactorNumber);
 
             intent.putExtra("size", GetSizeValue());
-            intent.putExtra("type", _typeSpinner.getSelectedItemId());
+            intent.putExtra("type", (int)_typeSpinner.getSelectedItemId());
             intent.putExtra("amountPeople", GetPeopleValue());
 
             try{

@@ -30,4 +30,6 @@
         das erwartete Gewicht des Baumhauses und daraus der entsprechende Durchmesser des Baumstammes ermittelt. Im folgenden findet Ihr genauerer Informationen zu den Auswahlmöglichkeiten
         zur Konfiguration eures Baumhausbaums.
     </string>
+
+    <string name="treeSize"><b>Baumdurchmesser</b></string>
 </resources>
