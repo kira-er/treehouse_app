@@ -65,7 +65,7 @@ public class HistoryActivity extends AppCompatActivity {
 
             DatabaseEntry entry = _entries[position];
             Timestamp timestamp = new Timestamp(entry.Timestamp);
-            holder.TimeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp)); //todo
+            holder.TimeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp));
             holder.SizeView.setText(df.format(entry.TreehouseSize));
             String[] types = getResources().getStringArray(R.array.treehousetypes_array);
             String typeText = "ERROR";

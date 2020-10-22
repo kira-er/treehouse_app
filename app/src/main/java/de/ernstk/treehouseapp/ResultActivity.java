@@ -4,6 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -19,9 +26,36 @@ public class ResultActivity extends AppCompatActivity {
         double snowHeight = intent.getDoubleExtra("snow", 0);
         double safetyFactor = intent.getDoubleExtra("safetyFactor", 1);
 
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+
         try {
             double treeDiameter =  calculateDiameter(type, size, amountPeople, snowHeight, safetyFactor);
-            MainActivity.DatabaseManager.InsertNewEntry(new DatabaseEntry(type, size, amountPeople, snowHeight, safetyFactor, treeDiameter));
+            DatabaseEntry dbEntry = new DatabaseEntry(type, size, amountPeople, snowHeight, safetyFactor, treeDiameter);
+            MainActivity.DatabaseManager.InsertNewEntry(dbEntry);
+
+            Timestamp timestamp = new Timestamp(dbEntry.Timestamp);
+            TextView timeStampView = findViewById(R.id.timeStampView);
+            timeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp));
+            TextView sizeView = findViewById(R.id.sizeView);
+            sizeView.setText(df.format(dbEntry.TreehouseSize));
+
+            String[] types = getResources().getStringArray(R.array.treehousetypes_array);
+            String typeText = "ERROR";
+            try{
+                typeText = types[dbEntry.TreehouseType];
+            }catch(Exception e){} //if the array access fails, text will be ERROR
+            TextView typeView = findViewById(R.id.typeView);
+            typeView.setText(typeText);
+
+            TextView amountPeopleView = findViewById(R.id.amountPeopleView);
+            amountPeopleView.setText(""+dbEntry.PersonCount);
+            TextView snowView = findViewById(R.id.snowView);
+            snowView.setText(df.format(dbEntry.SnowHeight));
+            TextView safetyFactorView = findViewById(R.id.safetyFactorView);
+            safetyFactorView.setText(df.format(dbEntry.SafetyFactor));
+            TextView treeSizeView = findViewById(R.id.treeSizeView);
+            treeSizeView.setText(df.format(dbEntry.TreeSize));
         } catch (Exception e) {
             finish();
         }
