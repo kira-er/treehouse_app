@@ -38,7 +38,7 @@ public class ResultActivity extends AppCompatActivity {
             TextView timeStampView = findViewById(R.id.timeStampView);
             timeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp));
             TextView sizeView = findViewById(R.id.sizeView);
-            sizeView.setText(df.format(dbEntry.TreehouseSize));
+            sizeView.setText(df.format(dbEntry.TreehouseSize) + " " + getResources().getString(R.string.Meters_Squared_Unit));
 
             String[] types = getResources().getStringArray(R.array.treehousetypes_array);
             String typeText = "ERROR";
@@ -49,13 +49,13 @@ public class ResultActivity extends AppCompatActivity {
             typeView.setText(typeText);
 
             TextView amountPeopleView = findViewById(R.id.amountPeopleView);
-            amountPeopleView.setText(""+dbEntry.PersonCount);
+            amountPeopleView.setText(""+dbEntry.PersonCount+" "+getResources().getString(R.string.People_unit));
             TextView snowView = findViewById(R.id.snowView);
-            snowView.setText(df.format(dbEntry.SnowHeight));
+            snowView.setText(df.format(dbEntry.SnowHeight)+" "+getResources().getString(R.string.Centimeter_unit));
             TextView safetyFactorView = findViewById(R.id.safetyFactorView);
             safetyFactorView.setText(df.format(dbEntry.SafetyFactor));
             TextView treeSizeView = findViewById(R.id.treeSizeView);
-            treeSizeView.setText(df.format(dbEntry.TreeSize));
+            treeSizeView.setText(df.format(dbEntry.TreeSize)+" "+getResources().getString(R.string.Centimeter_unit));
         } catch (Exception e) {
             finish();
         }

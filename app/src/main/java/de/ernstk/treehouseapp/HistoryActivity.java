@@ -66,7 +66,7 @@ public class HistoryActivity extends AppCompatActivity {
             DatabaseEntry entry = _entries[position];
             Timestamp timestamp = new Timestamp(entry.Timestamp);
             holder.TimeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp));
-            holder.SizeView.setText(df.format(entry.TreehouseSize));
+            holder.SizeView.setText(df.format(entry.TreehouseSize) + " " + getResources().getString(R.string.Meters_Squared_Unit));
             String[] types = getResources().getStringArray(R.array.treehousetypes_array);
             String typeText = "ERROR";
             try{
@@ -74,10 +74,10 @@ public class HistoryActivity extends AppCompatActivity {
             }catch(Exception e){} //if the array access fails, text will be ERROR
 
             holder.TypeView.setText(typeText);
-            holder.AmountPeopleView.setText(""+entry.PersonCount);
-            holder.SnowView.setText(df.format(entry.SnowHeight));
+            holder.AmountPeopleView.setText(""+entry.PersonCount+" "+getResources().getString(R.string.People_unit));
+            holder.SnowView.setText(df.format(entry.SnowHeight)+" "+getResources().getString(R.string.Centimeter_unit));
             holder.SafetyFactorView.setText(df.format(entry.SafetyFactor));
-            holder.TreeSizeView.setText(df.format(entry.TreeSize));
+            holder.TreeSizeView.setText(df.format(entry.TreeSize)+" "+getResources().getString(R.string.Centimeter_unit));
             holder.Index = entry.ID;
         }
 

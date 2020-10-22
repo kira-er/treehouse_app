@@ -17,7 +17,7 @@
     <string name="size_help">Durch den Parameter "Größe" wird angegeben, welche Fläche das Baumhaus haben soll. Die möglichen Werte orientieren sich am gewählten Baumhaustyp.</string>
     <string name="people"><b>Personenanzahl</b></string>
     <string name="people_help">Durch die Personenanzahl soll angegeben werden, wie viele Personen maximal gelichzeitig auf dem Baumhaus sein werden. Die möglichen Werte orientieren sich an der Größe des Bazumhauses.</string>
-    <string name="snow"><b>Schneehöhe</b></string>
+    <string name="snow"><b>Schneehöhe in cm</b></string>
     <string name="snow_help">Angabe, wie viel Schnee gemessen in cm im Winter durchschnittlich zu erwarten ist, um das dadurch entstehende Gewicht zu berücksichtigen. </string>
     <string name="safety"><b>Sicherheitsfaktor</b></string>
     <string name="safety_help">Durch den Sicherheitsfaktor wird in die Kalkulation des Baumduchmessers eine Toleranz mit einkalkuliert. Hierbei wird mindestens Faktor 2 empfohlen.</string>
@@ -32,4 +32,7 @@
     </string>
 
     <string name="treeSize"><b>Baumdurchmesser</b></string>
+    <string name="Centimeter_unit">cm</string>
+    <string name="People_unit">Person(en)</string>
+    <string name="Meters_Squared_Unit">m²</string>
 </resources>
