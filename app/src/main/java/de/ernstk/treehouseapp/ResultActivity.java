@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -59,6 +61,32 @@ public class ResultActivity extends AppCompatActivity {
         } catch (Exception e) {
             finish();
         }
+    }
+
+    private float x1,x2,y1,y2;
+    static final int MIN_HORIZONTAL_DISTANCE = 250;
+    static final int MAX_VERTICAL_DISTANCE = 100;
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch(ev.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = ev.getX();
+                y1 = ev.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = ev.getX();
+                y2 = ev.getY();
+                float horizontalDistance = x2 - x1;
+                float verticalDistance = Math.abs(y2 - y1);
+                Log.println(Log.DEBUG, "A", String.valueOf(horizontalDistance));
+                if (horizontalDistance > MIN_HORIZONTAL_DISTANCE && verticalDistance < MAX_VERTICAL_DISTANCE)
+                {
+                    finish();
+                }
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     private double calculateTreehouseWeight ( int type, double size) throws Exception {
