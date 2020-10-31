@@ -22,8 +22,7 @@
     <string name="safety"><b>Sicherheitsfaktor</b></string>
     <string name="safety_help">Durch den Sicherheitsfaktor wird in die Kalkulation des Baumduchmessers eine Toleranz mit einkalkuliert. Hierbei wird mindestens Faktor 2 empfohlen.</string>
 
-    <string name="general_help" >
-        <b>Herzlich Willkommen bei der ersten und einzigen Baumhausbaumkalkulationsapp!</b>\n
+    <string name="general_help" ><b>Herzlich Willkommen bei der ersten und einzigen Baumhausbaumkalkulationsapp!</b>\n
         \nWir helfen Euch, den Traum vom eigenen Baumhaus zu erfüllen, indem wir Euch den Mindestdurchmesser Eures Baumes berechnen.
         Die Traglast von Holz ist erstaunlich! Jedoch sollte beim Bau ein gerader, gesunder Baum gewählt, sowie die Gewichtsangaben der jeweils gewählten Befestigungmethode beachtet werden.
         Auf Basis der Angaben zum Typ, der Größe des Baumhauses, sowie zur Anzahl der auf dem Baumhaus erwarteten Personen und dem durchschnittlichen Schneefall wird gepaart mit einem Sicherheitsfaktor
@@ -35,4 +34,6 @@
     <string name="Centimeter_unit">cm</string>
     <string name="People_unit">Person(en)</string>
     <string name="Meters_Squared_Unit">m²</string>
+    <string name="SafetyFactor_Error">Safetyfactor muss größer oder gleich 1 sein!</string>
+    <string name="Snow_Error">Es muss ein Wert eingeben sein!</string>
 </resources>

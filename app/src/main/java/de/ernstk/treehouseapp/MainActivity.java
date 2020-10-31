@@ -5,6 +5,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,12 +41,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Spinner _typeSpinner;
 
+    private EditText _snowNumber;
+    private EditText _safetyFactorNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         DatabaseManager = new DatabaseManager(this);
+
+        _snowNumber = findViewById(R.id.snowNumber);
+        _snowNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                try{
+                TryParseSnowNumber();
+                }catch (Exception e){}
+            }
+        });
+        _safetyFactorNumber = findViewById(R.id.safetyFactorNumber);
+        _safetyFactorNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2){
+                try{
+                    TryParseSafetyFactor();
+                }catch (Exception e){}
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         _runButton = findViewById(R.id.runButton);
         _runButton.setOnClickListener(this);
@@ -94,26 +130,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view == _runButton){
             Intent intent = new Intent(this, ResultActivity.class);
 
-            EditText snowNumber = findViewById(R.id.snowNumber);
-            EditText safetyFactorNumber = findViewById(R.id.safetyFactorNumber);
-
             intent.putExtra("size", GetSizeValue());
             intent.putExtra("type", (int)_typeSpinner.getSelectedItemId());
             intent.putExtra("amountPeople", GetPeopleValue());
 
+            boolean shouldReturn = false; //allows both errors to be found
             try{
-                intent.putExtra("snow", Double.parseDouble(snowNumber.getText().toString()));
+                intent.putExtra("snow", TryParseSnowNumber());
             }catch (Exception e) {
-                //todo errorpopup
-                return;
+                shouldReturn = true;
             }
 
             try{
-                intent.putExtra("safetyFactor", Double.parseDouble(safetyFactorNumber.getText().toString()));
+                intent.putExtra("safetyFactor", TryParseSafetyFactor());
             }catch (Exception e){
-                //todo errorpopup
-                return;
+                shouldReturn = true;
             }
+            if(shouldReturn) return;
 
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.do_nothing);
@@ -158,6 +191,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }else{
                 desc.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    private double TryParseSnowNumber() throws Exception{
+        try{
+            return Double.parseDouble(_snowNumber.getText().toString());
+        }catch (Exception e) {
+            _snowNumber.setError(getResources().getString(R.string.Snow_Error));
+            throw e;
+        }
+    }
+
+    private double TryParseSafetyFactor() throws Exception {
+        try{
+            double safetyFactor = Double.parseDouble(_safetyFactorNumber.getText().toString());
+            if(safetyFactor < 1) throw new Exception();
+            return safetyFactor;
+        }catch (Exception e){
+            _safetyFactorNumber.setError(getResources().getString(R.string.SafetyFactor_Error));
+            throw e;
         }
     }
 
