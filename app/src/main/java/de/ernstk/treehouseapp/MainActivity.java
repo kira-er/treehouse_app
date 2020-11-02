@@ -235,17 +235,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int _sizeMin;
     private int _sizeMax;
     private void SetSizeBounds(int min, int max){
+        int newValue = _sizeSeekBar.getProgress() - min*10 + _sizeMin*10;
         _sizeMin = min;
         _sizeMax = (max - min) * 10;
         _sizeSeekBar.setMax(_sizeMax);
+        _sizeSeekBar.setProgress(newValue);
     }
 
     private int _peopleMin;
     private int _peopleMax;
     private void SetPeopleBounds(int min, int max){
+        int newValue = _amountPeopleSeekBar.getProgress() - min + _peopleMin;
         _peopleMin = min;
         _peopleMax = max - min;
         _amountPeopleSeekBar.setMax(_peopleMax);
+        _amountPeopleSeekBar.setProgress(newValue);
     }
 
     private double GetSizeValue(){
