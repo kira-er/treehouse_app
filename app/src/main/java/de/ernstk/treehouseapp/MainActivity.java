@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         _typeSpinner = findViewById(R.id.typeSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.treehousetypes_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.treehousetypes_array, R.layout.typespinner_item);
+        adapter.setDropDownViewResource(R.layout.typespinner_item);
         _typeSpinner.setAdapter(adapter);
         _typeSpinner.setOnItemSelectedListener(this);
 
