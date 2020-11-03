@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -36,28 +34,28 @@ public class ResultActivity extends AppCompatActivity {
             DatabaseEntry dbEntry = new DatabaseEntry(type, size, amountPeople, snowHeight, safetyFactor, treeDiameter);
             MainActivity.DatabaseManager.InsertNewEntry(dbEntry);
 
-            Timestamp timestamp = new Timestamp(dbEntry.Timestamp);
+            Timestamp timestamp = new Timestamp(dbEntry._timestamp);
             TextView timeStampView = findViewById(R.id.timeStampView);
             timeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp));
             TextView sizeView = findViewById(R.id.sizeView);
-            sizeView.setText(df.format(dbEntry.TreehouseSize) + " " + getResources().getString(R.string.Meters_Squared_Unit));
+            sizeView.setText(df.format(dbEntry._treehouseSize) + " " + getResources().getString(R.string.Meters_Squared_Unit));
 
             String[] types = getResources().getStringArray(R.array.treehousetypes_array);
             String typeText = "ERROR";
             try{
-                typeText = types[dbEntry.TreehouseType];
-            }catch(Exception e){} //if the array access fails, text will be ERROR
+                typeText = types[dbEntry._treehouseType];
+            }catch(Exception e){}
             TextView typeView = findViewById(R.id.typeView);
             typeView.setText(typeText);
 
             TextView amountPeopleView = findViewById(R.id.amountPeopleView);
-            amountPeopleView.setText(""+dbEntry.PersonCount+" "+getResources().getString(R.string.People_unit));
+            amountPeopleView.setText(""+dbEntry._personCount +" "+getResources().getString(R.string.People_unit));
             TextView snowView = findViewById(R.id.snowView);
-            snowView.setText(df.format(dbEntry.SnowHeight)+" "+getResources().getString(R.string.Centimeter_unit));
+            snowView.setText(df.format(dbEntry._snowHeight)+" "+getResources().getString(R.string.Centimeter_unit));
             TextView safetyFactorView = findViewById(R.id.safetyFactorView);
-            safetyFactorView.setText(df.format(dbEntry.SafetyFactor));
+            safetyFactorView.setText(df.format(dbEntry._safetyFactor));
             TextView treeSizeView = findViewById(R.id.treeSizeView);
-            treeSizeView.setText(df.format(dbEntry.TreeSize)+" "+getResources().getString(R.string.Centimeter_unit));
+            treeSizeView.setText(df.format(dbEntry._treeSize)+" "+getResources().getString(R.string.Centimeter_unit));
         } catch (Exception e) {
             finish();
         }

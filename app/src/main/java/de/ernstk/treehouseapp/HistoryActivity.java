@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,7 +22,7 @@ import java.text.SimpleDateFormat;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private DatabaseManager databaseManager;
+    private DatabaseManager _databaseManager;
     private RecyclerView _recyclerView;
 
     @Override
@@ -73,8 +72,8 @@ public class HistoryActivity extends AppCompatActivity {
         private LayoutInflater _inflater;
 
         private HistoryListViewAdapter(Context context) {
-            databaseManager = MainActivity.DatabaseManager;
-            _entries = databaseManager.GetEntries();
+            _databaseManager = MainActivity.DatabaseManager;
+            _entries = _databaseManager.GetEntries();
 
             _inflater = LayoutInflater.from(context);
         }
@@ -92,21 +91,21 @@ public class HistoryActivity extends AppCompatActivity {
             df.setMaximumFractionDigits(2);
 
             DatabaseEntry entry = _entries[position];
-            Timestamp timestamp = new Timestamp(entry.Timestamp);
+            Timestamp timestamp = new Timestamp(entry._timestamp);
             holder.TimeStampView.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(timestamp));
-            holder.SizeView.setText(df.format(entry.TreehouseSize) + " " + getResources().getString(R.string.Meters_Squared_Unit));
+            holder.SizeView.setText(df.format(entry._treehouseSize) + " " + getResources().getString(R.string.Meters_Squared_Unit));
             String[] types = getResources().getStringArray(R.array.treehousetypes_array);
             String typeText = "ERROR";
             try{
-                typeText = types[entry.TreehouseType];
+                typeText = types[entry._treehouseType];
             }catch(Exception e){} //if the array access fails, text will be ERROR
 
             holder.TypeView.setText(typeText);
-            holder.AmountPeopleView.setText(""+entry.PersonCount+" "+getResources().getString(R.string.People_unit));
-            holder.SnowView.setText(df.format(entry.SnowHeight)+" "+getResources().getString(R.string.Centimeter_unit));
-            holder.SafetyFactorView.setText(df.format(entry.SafetyFactor));
-            holder.TreeSizeView.setText(df.format(entry.TreeSize)+" "+getResources().getString(R.string.Centimeter_unit));
-            holder.Index = entry.ID;
+            holder.AmountPeopleView.setText(""+entry._personCount +" "+getResources().getString(R.string.People_unit));
+            holder.SnowView.setText(df.format(entry._snowHeight)+" "+getResources().getString(R.string.Centimeter_unit));
+            holder.SafetyFactorView.setText(df.format(entry._safetyFactor));
+            holder.TreeSizeView.setText(df.format(entry._treeSize)+" "+getResources().getString(R.string.Centimeter_unit));
+            holder.Index = entry._id;
         }
 
         @Override
@@ -115,8 +114,8 @@ public class HistoryActivity extends AppCompatActivity {
         }
 
         public void RefreshData(){
-            databaseManager = MainActivity.DatabaseManager;
-            _entries = databaseManager.GetEntries();
+            _databaseManager = MainActivity.DatabaseManager;
+            _entries = _databaseManager.GetEntries();
 
             notifyDataSetChanged();
         }

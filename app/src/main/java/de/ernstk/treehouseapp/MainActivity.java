@@ -229,7 +229,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         double size = GetSizeValue();
         SetPeopleBounds(1, (int)Math.round(size*1.5d));
-        //https://thetreehouse.shop/baumhaus-bauen/baumhaus-gewicht-belastung-statik/
     }
 
     private int _sizeMin;

@@ -7,11 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
-import androidx.annotation.Nullable;
-
-import java.io.Serializable;
-import java.util.Calendar;
-
 
 public class DatabaseManager extends SQLiteOpenHelper {
 
@@ -46,13 +41,13 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
     public void InsertNewEntry(DatabaseEntry entry) throws SQLException {
-        _insertStatement.bindLong(1, entry.Timestamp); //unix timestamp
-        _insertStatement.bindLong(2, entry.TreehouseType);
-        _insertStatement.bindDouble(3, entry.TreehouseSize);
-        _insertStatement.bindLong(4, entry.PersonCount);
-        _insertStatement.bindDouble(5, entry.SnowHeight);
-        _insertStatement.bindDouble(6, entry.SafetyFactor);
-        _insertStatement.bindDouble(7, entry.TreeSize);
+        _insertStatement.bindLong(1, entry._timestamp); //unix timestamp
+        _insertStatement.bindLong(2, entry._treehouseType);
+        _insertStatement.bindDouble(3, entry._treehouseSize);
+        _insertStatement.bindLong(4, entry._personCount);
+        _insertStatement.bindDouble(5, entry._snowHeight);
+        _insertStatement.bindDouble(6, entry._safetyFactor);
+        _insertStatement.bindDouble(7, entry._treeSize);
 
         long idOfNewRow = _insertStatement.executeInsert();
         _insertStatement.clearBindings();
